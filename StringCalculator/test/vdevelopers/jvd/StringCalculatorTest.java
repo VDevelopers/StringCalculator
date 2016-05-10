@@ -25,6 +25,11 @@ public class StringCalculatorTest {
         Assert.assertEquals(6, StringCalculator.add("1\n2,3"));
     }
 
+    @Test
+    public void testAddStep4() {
+        Assert.assertEquals(3, StringCalculator.add("//;\n1;2"));
+    }
+
     private String get100ValuePlusOne() {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < 100; i++) {
