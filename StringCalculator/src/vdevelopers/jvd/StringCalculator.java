@@ -7,7 +7,7 @@ public class StringCalculator {
         int result = 0;
 
         if (!numbers.isEmpty()) {
-            String[] splitNumbers = numbers.split(",");
+            String[] splitNumbers = numbers.split(",|\n");
             for (String number : splitNumbers) {
                 result += Integer.valueOf(number);
             }
