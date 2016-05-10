@@ -1,11 +1,14 @@
 package vdevelopers.jvd;
 
+import vdevelopers.jvd.exceptions.NegativesNotAllowedException;
+
 public class StringCalculator {
 
     private final static String DEFAULT_DELIMITERS = ",|\n";
     private final static String PREFIX_NEW_DELIMITER = "//";
+    private final static String PREFIX_NEGATIVE = "-";
 
-    public static int add(String numbers) {
+    public static int add(String numbers) throws NegativesNotAllowedException {
 
         int result = 0;
 
@@ -15,11 +18,29 @@ public class StringCalculator {
             String regexDelimiter = getRegexDelimiter(numbers);
             String[] splitNumbers = numbersWithoutOptionalDelimiters.split(regexDelimiter);
             for (String number : splitNumbers) {
+                if (number.startsWith(PREFIX_NEGATIVE)) {
+                    throw new NegativesNotAllowedException(getErrorNegativeMessage(splitNumbers));
+                }
                 result += Integer.valueOf(number);
             }
         }
 
         return result;
+    }
+
+    private static String getErrorNegativeMessage(String[] splitNumbers) {
+        StringBuffer message = new StringBuffer();
+        for (String number : splitNumbers) {
+            if (number.startsWith(PREFIX_NEGATIVE)) {
+                if (message.toString().isEmpty()) {
+                    message.append(number);
+                } else {
+                    message.append(",");
+                    message.append(number);
+                }
+            }
+        }
+        return "ERROR. Negative not allowed: " + message.toString();
     }
 
     private static String getNumbersWithoutOptionalDelimiters(String numbers) {

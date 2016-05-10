@@ -4,30 +4,37 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import vdevelopers.jvd.exceptions.NegativesNotAllowedException;
+
 public class StringCalculatorTest {
 
     @Test
-    public void testAddStep1() {
+    public void testAddStep1() throws NegativesNotAllowedException {
         Assert.assertEquals(0, StringCalculator.add(""));
         Assert.assertEquals(1, StringCalculator.add("1"));
         Assert.assertEquals(3, StringCalculator.add("1,2"));
     }
 
     @Test
-    public void testAddStep2() {
+    public void testAddStep2() throws NegativesNotAllowedException {
         Assert.assertEquals(39, StringCalculator.add("1,2,3,4,5,6,18"));
         Assert.assertEquals(100, StringCalculator.add(get100ValuePlusOne()));
 
     }
 
     @Test
-    public void testAddStep3() {
+    public void testAddStep3() throws NegativesNotAllowedException {
         Assert.assertEquals(6, StringCalculator.add("1\n2,3"));
     }
 
     @Test
-    public void testAddStep4() {
+    public void testAddStep4() throws NegativesNotAllowedException {
         Assert.assertEquals(3, StringCalculator.add("//;\n1;2"));
+    }
+
+    @Test(expected = NegativesNotAllowedException.class)
+    public void testAddStep5() throws NegativesNotAllowedException {
+        StringCalculator.add("1,2,-3");
     }
 
     private String get100ValuePlusOne() {
