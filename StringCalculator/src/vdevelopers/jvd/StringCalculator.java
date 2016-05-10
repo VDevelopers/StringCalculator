@@ -21,7 +21,12 @@ public class StringCalculator {
                 if (number.startsWith(PREFIX_NEGATIVE)) {
                     throw new NegativesNotAllowedException(getErrorNegativeMessage(splitNumbers));
                 }
-                result += Integer.valueOf(number);
+
+                int value = Integer.valueOf(number);
+                if (value < 1000) {
+                    result += value;
+                }
+
             }
         }
 

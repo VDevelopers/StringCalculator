@@ -37,6 +37,11 @@ public class StringCalculatorTest {
         StringCalculator.add("1,2,-3");
     }
 
+    @Test
+    public void testAddStep6() throws NegativesNotAllowedException {
+        Assert.assertEquals(2, StringCalculator.add("2,1001"));
+    }
+
     private String get100ValuePlusOne() {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < 100; i++) {
