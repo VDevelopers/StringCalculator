@@ -42,6 +42,11 @@ public class StringCalculatorTest {
         Assert.assertEquals(2, StringCalculator.add("2,1001"));
     }
 
+    @Test
+    public void testAddStep7() throws NegativesNotAllowedException {
+        Assert.assertEquals(6, StringCalculator.add("//[***]\n1***2***3"));
+    }
+
     private String get100ValuePlusOne() {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < 100; i++) {

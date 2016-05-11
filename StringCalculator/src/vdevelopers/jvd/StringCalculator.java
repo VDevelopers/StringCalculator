@@ -7,6 +7,7 @@ public class StringCalculator {
     private final static String DEFAULT_DELIMITERS = ",|\n";
     private final static String PREFIX_NEW_DELIMITER = "//";
     private final static String PREFIX_NEGATIVE = "-";
+    private final static String END_NEW_DELIMITER = "\n";
 
     public static int add(String numbers) throws NegativesNotAllowedException {
 
@@ -26,7 +27,6 @@ public class StringCalculator {
                 if (value < 1000) {
                     result += value;
                 }
-
             }
         }
 
@@ -51,16 +51,20 @@ public class StringCalculator {
     private static String getNumbersWithoutOptionalDelimiters(String numbers) {
         String numbersWithoutOptionalDelimiters = numbers;
         if (numbers.startsWith(PREFIX_NEW_DELIMITER)) {
-            numbersWithoutOptionalDelimiters = numbers.substring(4);
+            numbersWithoutOptionalDelimiters = numbers.substring(numbers.indexOf(END_NEW_DELIMITER) + 1);
         }
         return numbersWithoutOptionalDelimiters;
     }
 
     private static String getRegexDelimiter(String numbers) {
         String delimiter = DEFAULT_DELIMITERS;
-
         if (numbers.startsWith(PREFIX_NEW_DELIMITER)) {
-            delimiter = numbers.substring(2, 3);
+            if (numbers.startsWith(PREFIX_NEW_DELIMITER + "[")) {
+                delimiter = numbers.substring(numbers.indexOf("[") + 1, numbers.indexOf("]"));
+            } else {
+                delimiter = numbers.substring(2, 3);
+            }
+            delimiter = delimiter.replace("*", "\\*");
         }
 
         return delimiter;
